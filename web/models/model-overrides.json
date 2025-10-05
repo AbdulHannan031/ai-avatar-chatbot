@@ -1,0 +1,12 @@
+{
+  "default": {
+    "zoom": 2.1,
+    "vOffset": 0.28,
+    "scale": 1.0,
+    "log": false
+  },
+  "model.fbx": {
+    "zoom": 2.1,
+    "vOffset": 0.28
+  }
+}

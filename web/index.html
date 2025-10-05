@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>George – Dynavap Chat</title>
+  <!-- Import map so bare 'three' specifier resolves to the CDN ES module URL -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.154.0/build/three.module.js"
+    }
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&family=Epilogue:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="avatar" id="avatar" aria-hidden="true">
+        <!-- data-srcs: comma-separated candidate URLs tried in order; first reachable will be used -->
+        <img id="avatar-img" src="/avatar" data-srcs="/static/george.png,/george.png,/avatar" alt="George avatar" />
+      </div>
+      <div class="title">
+        <h1>Chat with George</h1>
+        <p>Dynavap tips and answers grounded in George’s videos.</p>
+      </div>
+      <div class="header-controls">
+        <button id="preview-btn" title="Open avatar preview">Preview</button>
+        <button id="settings-btn" title="Avatar settings">Settings</button>
+      </div>
+    </header>
+
+    <main id="chat" class="chat" aria-live="polite" aria-label="Chat messages"></main>
+
+    <footer class="composer">
+      <form id="composer-form">
+        <input id="prompt" type="text" placeholder="Ask George about Dynavap..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+      <label class="tts">
+        <input id="speak-toggle" type="checkbox" /> Speak responses
+      </label>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+  <script>
+    // Idle breathing animation on load (do not redeclare `avatar` which is defined in app.js)
+    (function(){
+      const av = document.getElementById('avatar');
+      if (av) av.classList.add('idle');
+    })();
+  </script>
+
+  <!-- Modals: preview, settings, and error -->
+  <div id="modal-root">
+    <div id="preview-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel">
+        <header class="modal-header"><h3>Avatar Preview</h3><button class="modal-close" data-target="preview-modal">×</button></header>
+        <div class="modal-body" id="preview-body">
+          <!-- Avatar canvas will be reparented here for full-size preview -->
+        </div>
+      </div>
+    </div>
+
+    <div id="settings-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel">
+        <header class="modal-header"><h3>Avatar Settings</h3><button class="modal-close" data-target="settings-modal">×</button></header>
+        <div class="modal-body">
+          <label>Gesture map (regex -> animation name)</label>
+          <textarea id="gesture-map-editor" rows="8" style="width:100%;font-family:monospace"></textarea>
+          <div style="margin-top:8px;text-align:right;"><button id="gesture-save">Save</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="error-modal" class="modal" aria-hidden="true">
+      <div class="modal-panel">
+        <header class="modal-header"><h3>Error</h3><button class="modal-close" data-target="error-modal">×</button></header>
+        <div class="modal-body" id="error-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right-side docked preview (non-modal) -->
+  <aside id="preview-side" class="preview-side" aria-hidden="true">
+    <div class="preview-side-panel">
+      <header class="modal-header"><h3>Avatar Preview</h3>
+        <div class="preview-controls-top">
+          <label for="preview-zoom">Zoom</label>
+          <input id="preview-zoom" type="range" min="0.8" max="3.5" step="0.1" value="2.1" />
+        </div>
+      </header>
+      <div class="preview-side-body" id="preview-side-body">
+        <!-- Avatar canvas will be reparented here for side preview -->
+      </div>
+    </div>
+  </aside>
+</body>
+<!--
+Replace the SVG with a Lottie or a custom animated avatar later.
+The mouth animates by toggling the .speaking class while TTS is playing.
+-->
+</html>

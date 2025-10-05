@@ -1,0 +1,7 @@
+{
+  "\\b(thank|thanks|great|love|good)\\b": "happy hand gesture",
+  "\\b(think|hmm|maybe|consider)\\b": "Thoughtful Head Nod",
+  "\\b(no|not|never|don't|dont)\\b": "shaking head no",
+  "\\b(yes|sure|right|correct|indeed)\\b": "head nod yes",
+  "\\b(angry|frustrat|annoy)\\b": "angry gesture"
+}
